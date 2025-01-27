@@ -1,4 +1,11 @@
-import { View, Text, Pressable, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 
 //Custom Components
@@ -16,6 +23,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 const sampleData = [
   {
@@ -32,6 +40,7 @@ const sampleData = [
 
 const index = () => {
   const [categoryFilter, setCategoryFilter] = useState("House");
+  const router = useRouter();
 
   return (
     <FadeView className="flex-1 justify-start items-start">
@@ -126,7 +135,14 @@ const index = () => {
         <ScrollView>
           <View className="flex-col gap-2 p-2">
             {sampleData.map((item, i) => (
-              <ProductCard data={item} key={i} />
+              <Pressable
+                key={i}
+                onPress={() => {
+                  router.push(`product/${i}`);
+                }}
+              >
+                <ProductCard data={item} />
+              </Pressable>
             ))}
           </View>
         </ScrollView>
